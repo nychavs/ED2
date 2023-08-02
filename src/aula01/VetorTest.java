@@ -92,7 +92,7 @@ class VetorTest {
 		vetor.adicionar(cliente1);
 		vetor.adicionar(cliente2);
 		
-		assertThrows(IllegalArgumentException.class, ()->vetor.pegar(4));
+		assertThrows(IllegalArgumentException.class, ()->vetor.pegar(8));
 	}
 	
 	@Test
@@ -103,7 +103,6 @@ class VetorTest {
 		assertFalse(vetor.contem(cliente1));
 		assertEquals(0, vetor.pegaTotalClientes());
 	}
-	
 	
 	@Test
 	void testContemComElementos() {
@@ -196,10 +195,83 @@ class VetorTest {
 		
 	}
 	
+	@Test
+	void testRemoverUltimoComElemento() {
+		Cliente cliente1 = new Cliente("Naiury");
+		
+		vetor.adicionar(cliente1);
+		vetor.removerUltimo();
+		
+		assertEquals(0, vetor.pegaTotalClientes());
+	}
 	
+	@Test
+	void testRemoverUltimoSemElemento() {
+	    assertThrows(IllegalArgumentException.class, () -> vetor.removerUltimo());
+	}
 	
+	@Test
+	void testRemoverPrimeiroComElemento() {
+		Cliente cliente1 = new Cliente("Naiury");
+		
+		vetor.adicionar(cliente1);
+		vetor.removerPrimeiro();
+		
+		assertEquals(0, vetor.pegaTotalClientes());
+	}
 	
+	@Test
+	void testRemoverPrimeiroSemElemento() {
+		assertThrows(IllegalArgumentException.class, () -> vetor.removerPrimeiro());
+	}
+
+	@Test
+	void testRemoverTodosComElemento() {
+		Cliente cliente1 = new Cliente("Naiury");		
+		Cliente cliente2 = new Cliente("Chaves");
+		
+		vetor.adicionar(cliente1);
+		vetor.adicionar(cliente2);
+		vetor.removerTodos();
+		
+		assertEquals(0, vetor.pegaTotalClientes());
+	}
 	
+	@Test
+	void testRemoverTodosSemElemento() {
+		assertThrows(IllegalArgumentException.class, () -> vetor.removerTodos());
+	}
+	
+	@Test
+	void testReduzEspaco() {
+		Cliente cliente1 = new Cliente("Fernando");
+		Cliente cliente2 = new Cliente("Maria");
+		Cliente cliente3 = new Cliente("Carlos");
+		
+		Cliente cliente4 = new Cliente("Rose");
+		Cliente cliente5 = new Cliente("Xuxa");
+		Cliente cliente6 = new Cliente("Ze");
+		
+		vetor.adicionar(cliente1);
+		vetor.adicionar(cliente2);
+		vetor.adicionar(cliente3);
+		
+		vetor.adicionar(cliente4);
+		vetor.adicionar(cliente5);
+		vetor.adicionar(cliente6);
+		
+		assertEquals(6, vetor.pegaTotalClientes());
+		assertEquals(10, vetor.retornaTamanhoVetor());
+		
+		vetor.remover(1);
+		vetor.remover(2);
+		vetor.remover(3);
+		vetor.remover(0);
+		
+		assertEquals(2, vetor.pegaTotalClientes());
+		assertEquals(5, vetor.retornaTamanhoVetor());
+		
+	}
 	
 	
 	

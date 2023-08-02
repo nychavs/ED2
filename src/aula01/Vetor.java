@@ -7,6 +7,15 @@ public class Vetor {
 	private Cliente[] clientes = new Cliente[5];
 	private int totalDeClientes = 0;
 	
+	private void reduzEspaco() {
+		if (totalDeClientes < clientes.length * 0.25) {
+			Cliente[] novoVetor = Arrays.copyOf(clientes, clientes.length/2);
+			clientes = novoVetor;
+		}		
+	}
+	public int retornaTamanhoVetor(){
+		return clientes.length;
+	}
 	
 	private void garateEspaco() {
 		
@@ -15,13 +24,6 @@ public class Vetor {
 			clientes = novoVetor;
 		}
 		
-	}
-	
-	private void reduzEspaco() {
-		if (totalDeClientes <= clientes.length * 0.25) {
-			Cliente[] novoVetor = Arrays.copyOf(clientes, clientes.length/2);
-			clientes = novoVetor;
-		}
 	}
 	
 	public void adicionar(Cliente novoCliente) {
@@ -75,7 +77,6 @@ public class Vetor {
 	}
 	
 	public void remover(int posicaoRemover) {
-		reduzEspaço();
 		
 		if (!posicaoOcupada(posicaoRemover)) {
 			throw new IllegalArgumentException("Posicao invalida");
@@ -86,23 +87,42 @@ public class Vetor {
 		}
 		
 		totalDeClientes--;
+		reduzEspaco();
+	}
+	
+	public void removerUltimo() {
+
+		if (!posicaoOcupada(totalDeClientes-1)) {
+			throw new IllegalArgumentException("O vetor esta vazio");
+		}
+		clientes[totalDeClientes-1] = null;
+		totalDeClientes--;
+		reduzEspaco();
 	}
 	
 	public void removerPrimeiro() {
+
 		if (!posicaoOcupada(0)) {
-			throw new IllegalArgumentException("posicao invalida");
+			throw new IllegalArgumentException("O vetor esta vazio");
 		}
-		
-		for (int i=0; i < totalDeClientes; i++) {
+		for (int i=0; i<totalDeClientes; i++) {
 			clientes[i] = clientes[i+1];
 		}
 		totalDeClientes--;
+		reduzEspaco();
 	}
 	
-	public void removerTodos(){
-		for (int i=totalDeClientes; i <= 0; i--) {
-			clientes[i] = null;
+	public void removerTodos() {
+		if (!posicaoOcupada(0)) {
+			throw new IllegalArgumentException("O vetor esta vazio");
 		}
-		totalDeClientes--;
+		
+		for (int i=0; i <= totalDeClientes; i++) {
+			clientes[i] = null;
+			totalDeClientes --;
+		}
+		reduzEspaco();
 	}
+	
+
 }

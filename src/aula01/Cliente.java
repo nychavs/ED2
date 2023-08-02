@@ -34,6 +34,5 @@ public class Cliente {
 		
 		return outro.getNome().equals(this.nome);
 	}
-	
 
 }
