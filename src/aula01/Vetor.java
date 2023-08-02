@@ -17,6 +17,13 @@ public class Vetor {
 		
 	}
 	
+	private void reduzEspaco() {
+		if (totalDeClientes <= clientes.length * 0.25) {
+			Cliente[] novoVetor = Arrays.copyOf(clientes, clientes.length/2);
+			clientes = novoVetor;
+		}
+	}
+	
 	public void adicionar(Cliente novoCliente) {
 		
 		garateEspaco();
@@ -68,6 +75,7 @@ public class Vetor {
 	}
 	
 	public void remover(int posicaoRemover) {
+		reduzEspaço();
 		
 		if (!posicaoOcupada(posicaoRemover)) {
 			throw new IllegalArgumentException("Posicao invalida");
@@ -79,19 +87,22 @@ public class Vetor {
 		
 		totalDeClientes--;
 	}
-
 	
+	public void removerPrimeiro() {
+		if (!posicaoOcupada(0)) {
+			throw new IllegalArgumentException("posicao invalida");
+		}
+		
+		for (int i=0; i < totalDeClientes; i++) {
+			clientes[i] = clientes[i+1];
+		}
+		totalDeClientes--;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void removerTodos(){
+		for (int i=totalDeClientes; i <= 0; i--) {
+			clientes[i] = null;
+		}
+		totalDeClientes--;
+	}
 }
