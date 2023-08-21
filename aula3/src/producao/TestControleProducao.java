@@ -8,27 +8,46 @@ class TestControleProducao {
 
 	@Test
 	void testInserir() {
-		ControleProducao maquina01 = new ControleProducao();
-		maquina01.adicionarPecaMaquina(2);
+		ControleProducao maquina = new ControleProducao();
+		maquina.adicionarPecaMaquina(6);
 		
-		assertEquals(2, maquina01.pegaTamanhoMaquina01());
+		assertEquals(6, maquina.pegaTamanhoMaquina01());
+		assertEquals(0, maquina.pegaTamanhoMaquina02());
+		assertEquals(0, maquina.pegaTamanhoMaquina03());
 	}
 	
 	@Test
 	void testProcessarVazia() {
-		ControleProducao maquina01 = new ControleProducao();
+		ControleProducao maquina = new ControleProducao();
 		
-		assertThrows(IllegalArgumentException.class, () -> maquina01.processarMaquina(1));
-	
+		assertThrows(IllegalArgumentException.class, () -> maquina.processarMaquina(1));
 	}
 	
 	@Test
 	void testProcessar() {
-		ControleProducao maquina01 = new ControleProducao();
-		maquina01.adicionarPecaMaquina(6);
-		maquina01.processarMaquina(1);
-		assertEquals(0, maquina01.pegaTamanhoMaquina01());
+		ControleProducao maquina = new ControleProducao();
+		maquina.adicionarPecaMaquina(6);
+		maquina.processarMaquina(1);
+		
+		assertEquals(0, maquina.pegaTamanhoMaquina01());
+		assertEquals(6, maquina.pegaTamanhoMaquina02());
+		assertEquals(0, maquina.pegaTamanhoMaquina03());
+	}
 	
+	@Test
+	void testProcessarMaquina3() {
+		ControleProducao maquina = new ControleProducao();
+		maquina.adicionarPecaMaquina(6);
+		maquina.processarMaquina(1);
+		maquina.processarMaquina(2);
+		
+		assertEquals(0, maquina.pegaTamanhoMaquina01());
+		assertEquals(0, maquina.pegaTamanhoMaquina02());
+		assertEquals(6, maquina.pegaTamanhoMaquina03());
+		
+		maquina.processarMaquina(3);
+		assertEquals(0, maquina.pegaTamanhoMaquina03());
+
 	}
 
 }
